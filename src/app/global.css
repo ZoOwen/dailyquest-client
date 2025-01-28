@@ -1,0 +1,17 @@
+/* Tambahkan CSS ini jika Anda ingin kustomisasi lebih lanjut */
+
+html, body {
+    margin: 0;
+    padding: 0;
+  }
+  
+  body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+  }
+  
+  footer {
+    margin-top: auto; /* memastikan footer selalu berada di bawah */
+  }
+
