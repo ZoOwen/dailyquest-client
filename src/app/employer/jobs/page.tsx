@@ -112,19 +112,14 @@ const EmployerPage = () => {
                             <option value="active">Aktif</option>
                             <option value="closed">Tutup</option>
                         </select>
-                        <select>
-                            <option value="all">Semua Departemen</option>
-                            <option value="technology">Technology</option>
-                            <option value="marketing">Marketing</option>
-                        </select>
                     </div>
 
                     {/* Tabel Menampilkan Pekerjaan */}
                     <table className="job-table">
                         <thead>
                             <tr>
-                                <th>Posisi</th>
-                                <th>Departemen</th>
+                                <th>Nama Pekerjaan</th>
+                                <th>Deskripsi</th>
                                 <th>Tanggal Posting</th>
                                 <th>Gaji</th>
                                 <th>Status</th>
