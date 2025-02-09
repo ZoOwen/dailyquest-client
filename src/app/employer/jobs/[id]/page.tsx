@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { useRouter, useParams } from "next/navigation"; // Import useParams
+import { useParams } from "next/navigation"; // Import useParams
 import SidebarEmployer from "../../../components/layout/SidebarEmployer";
 import HeaderEmployer from "../../../components/layout/HeaderEmployer";
 import '../../../dashboard.css';
@@ -30,7 +30,7 @@ const JobApplicantsPage = () => {
     const [token, setToken] = useState<string | null>(null); // Simpan token di state
     const [showModal, setShowModal] = useState(false); // Untuk mengatur apakah modal tampil
     const [selectedApplicationId, setSelectedApplicationId] = useState<number | null>(null); // ID aplikasi yang dipilih
-    const router = useRouter();
+
     const params = useParams(); // Ambil parameter URL
     const id = params.id; // Ambil id dari parameter URL
 

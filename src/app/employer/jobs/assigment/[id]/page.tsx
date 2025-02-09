@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { useRouter, useParams } from "next/navigation";
+import { useParams } from "next/navigation";
 import SidebarEmployer from "../../../../components/layout/SidebarEmployer";
 import HeaderEmployer from "../../../../components/layout/HeaderEmployer";
 import '../../../../dashboard.css';
@@ -37,7 +37,7 @@ const JobAssignmentPage = () => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
     const [token, setToken] = useState<string | null>(null);
-    const router = useRouter();
+
     const params = useParams();
     const id = params.id; // ID dari job assignment
 

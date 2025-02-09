@@ -1,8 +1,7 @@
 // components/layout/HeaderEmployer.tsx
 
-import { Feather, LogOut, PlusCircle, User, UserX } from "react-feather";
+import { Feather, LogOut, PlusCircle } from "react-feather";
 import Link from "next/link";
-import { useState } from "react";
 
 interface HeaderEmployerProps {
     isProfileMenuOpen: boolean;

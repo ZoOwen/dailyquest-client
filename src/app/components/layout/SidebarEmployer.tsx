@@ -1,7 +1,6 @@
 // components/layout/SidebarEmployer.tsx
 
 import { Feather, Briefcase, Bell, Mail, Users } from "react-feather";
-import { useState } from "react";
 
 interface SidebarEmployerProps {
     isSidebarMinimized: boolean;
