@@ -1,9 +1,10 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import SidebarEmployer from "../../components/layout/SidebarEmployer";
 import HeaderEmployer from "../../components/layout/HeaderEmployer";
 import "../../dashboard.css";
+
 interface DecodedToken {
     id: number;
     username: string;
@@ -11,41 +12,61 @@ interface DecodedToken {
     iat: number;
     exp: number;
 }
+
 export default function Page() {
-    const token = localStorage.getItem("token");
-
-    // Fungsi untuk mengurai JWT dan mendapatkan ID pengguna
-    function parseJwt(token: string | null): DecodedToken | null {
-        if (!token) {
-            return null; // Kembalikan null jika token tidak ada
-        }
-        const base64Url = token.split('.')[1]; // Ambil bagian payload dari JWT
-        const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/'); // Decode base64 URL
-        return JSON.parse(window.atob(base64)); // Parse payload menjadi objek
-    }
-
-    // Cek jika token ada dan valid
-    const decodedToken = parseJwt(token);
-    if (!decodedToken) {
-        console.log("Token tidak valid atau tidak ada.");
-        return null; // Jangan tampilkan JobCard jika token tidak ada atau tidak valid
-    }
-
-    const { id: userId } = decodedToken;
-    console.log("hitted ini pasti,", decodedToken)
+    const [isSidebarMinimized, setIsSidebarMinimized] = useState(false);
+    const [isProfileMenuOpen, setIsProfileMenuOpen] = useState(false);
+    const [decodedToken, setDecodedToken] = useState<DecodedToken | null>(null);
     const [formData, setFormData] = useState({
         title: "",
         description: "",
         category: "",
         salary: "",
         location: "",
-        user_id: userId,  // Dummy value for employer_id
+        user_id: null, // Awalnya null, nanti diupdate setelah token diproses
     });
-
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState("");
     const [success, setSuccess] = useState(false);
 
+    // 🟢 Ambil token dan parse JWT di `useEffect`
+    useEffect(() => {
+        const token = localStorage.getItem("token");
+
+        function parseJwt(token: string | null): DecodedToken | null {
+            if (!token) return null;
+            try {
+                const base64Url = token.split(".")[1];
+                const base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/");
+                return JSON.parse(window.atob(base64));
+            } catch (error) {
+                console.error("Error parsing token:", error);
+                return null;
+            }
+        }
+
+        const parsedToken = parseJwt(token);
+        setDecodedToken(parsedToken);
+
+        if (parsedToken) {
+            setFormData((prev) => ({ ...prev, user_id: parsedToken.id }));
+        }
+    }, []);
+
+    // ❌ Jangan return null langsung, karena semua hooks harus dipanggil dulu
+    if (!decodedToken) {
+        return <p>Loading...</p>; // Bisa tambahkan loading state di sini
+    }
+
+    // Toggle Sidebar
+    const toggleSidebar = () => {
+        setIsSidebarMinimized(!isSidebarMinimized);
+    };
+
+    // Toggle Profile Dropdown
+    const toggleProfileMenu = () => {
+        setIsProfileMenuOpen(!isProfileMenuOpen);
+    };
 
     // Handle input changes
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -85,14 +106,14 @@ export default function Page() {
                     category: "",
                     salary: "",
                     location: "",
-                    user_id: userId,
+                    user_id: decodedToken.id,
                 });
             } else {
                 setError("Error: " + data.message);
             }
         } catch (err) {
             setError("An error occurred while creating the job.");
-            console.log(err)
+            console.log(err);
         } finally {
             setLoading(false);
         }
@@ -100,9 +121,15 @@ export default function Page() {
 
     return (
         <div className="dashboard flex">
-            <SidebarEmployer />
+            <SidebarEmployer
+                isSidebarMinimized={isSidebarMinimized}
+                toggleSidebar={toggleSidebar}
+            />
             <div className="main-content flex-1">
-                <HeaderEmployer />
+                <HeaderEmployer
+                    isProfileMenuOpen={isProfileMenuOpen}
+                    toggleProfileMenu={toggleProfileMenu}
+                />
 
                 <main className="dashboard-content p-6">
                     <h2 className="text-2xl font-semibold mb-4">Create New Job</h2>

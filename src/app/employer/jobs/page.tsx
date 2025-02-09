@@ -2,7 +2,7 @@
 import { useState, useEffect } from "react";
 import SidebarEmployer from "../../components/layout/SidebarEmployer";
 import HeaderEmployer from "../../components/layout/HeaderEmployer";
-import { Edit2, Trash2, User, UserCheck, Users } from "react-feather";
+import { Edit2, UserCheck, Users } from "react-feather";
 import Link from "next/link";
 import '../../dashboard.css';
 
@@ -55,24 +55,29 @@ const EmployerPage = () => {
     useEffect(() => {
         const fetchJobs = async () => {
             try {
-                // Tambahkan user_id jika ada
-                const url = userId ? `http://localhost:5000/api/v1/job?user_id=${userId}` : "http://localhost:5000/api/v1/job";
+                // Siapkan URL berdasarkan userId
+                const url = userId
+                    ? `http://localhost:5000/api/v1/job?user_id=${userId}`
+                    : "http://localhost:5000/api/v1/job";
+
                 const response = await fetch(url);
                 const data = await response.json();
-                console.log(data); // Cek respons API
-                if (data && data.data && Array.isArray(data.data.rows)) {
-                    setJobs(data.data.rows); // Menyimpan data rows dari API
+
+                // Periksa struktur respons API sebelum menyimpannya
+                if (data?.data?.rows?.length) {
+                    setJobs(data.data.rows); // Simpan data jobs
                 } else {
-                    setJobs([]); // Jika tidak ada data
+                    setJobs([]); // Kosongkan jobs jika tidak ada data
                 }
             } catch (error) {
                 console.error("Error fetching jobs:", error);
-                setJobs([]); // Menyimpan data kosong jika terjadi error
+                setJobs([]); // Kosongkan jobs jika terjadi error
             }
         };
 
-        fetchJobs();
-    }, [userId]); // Hanya dijalankan jika userId berubah
+        fetchJobs(); // Jalankan fungsi fetch
+    }, [userId]); // Tetap terhubung dengan userId sebagai dependensi
+
 
     // Handle pagination
     const indexOfLastJob = currentPage * jobsPerPage;
