@@ -63,8 +63,8 @@ const EmployerPage = () => {
         const fetchJobs = async () => {
             try {
                 const url = userId
-                    ? `http://localhost:5000/api/v1/job?user_id=${userId}`
-                    : "http://localhost:5000/api/v1/job";
+                    ? `http://147.93.106.89:5000/api/v1/job?user_id=${userId}`
+                    : "http://147.93.106.89:5000/api/v1/job";
 
                 const response = await fetch(url);
                 const data = await response.json();

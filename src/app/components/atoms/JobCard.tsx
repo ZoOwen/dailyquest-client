@@ -67,7 +67,7 @@ export default function JobCard({ job }: JobCardProps) {
         setIsModalOpen(false); // Menutup modal konfirmasi
         try {
             setIsLoading(true);
-            const response = await fetch("http://localhost:5000/api/v1/application/create", {
+            const response = await fetch("http://147.93.106.89:5000/api/v1/application/create", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",

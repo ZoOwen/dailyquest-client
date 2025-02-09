@@ -109,7 +109,7 @@ export default function RegisterWorker() {
         }
 
         try {
-            const apiUrl = `http://localhost:5000/api/v1/auth/register?role=2`;
+            const apiUrl = `http://147.93.106.89:5000/api/v1/auth/register?role=2`;
             const formDataToSend = new FormData();
 
             // Append semua data ke FormData

@@ -24,7 +24,7 @@ export default function JobsPage() {
         if (order) queryParams.append("order", order);  // Menambahkan sorting
 
         try {
-            const res = await fetch(`http://localhost:5000/api/v1/job?${queryParams.toString()}`);
+            const res = await fetch(`http://147.93.106.89:5000/api/v1/job?${queryParams.toString()}`);
             console.log("ini api nya", res)
             if (!res.ok) {
                 throw new Error(`Failed to fetch jobs: ${res.statusText}`);

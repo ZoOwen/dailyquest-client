@@ -64,7 +64,7 @@ export default function JobDetailPage() {
             setError(""); // Reset error
 
             try {
-                const res = await fetch(`http://localhost:5000/api/v1/job/${id}`);
+                const res = await fetch(`http://147.93.106.89:5000/api/v1/job/${id}`);
                 if (!res.ok) {
                     throw new Error(`Failed to fetch job details: ${res.statusText}`);
                 }
