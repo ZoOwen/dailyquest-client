@@ -46,6 +46,7 @@ export default function ApplicationHistoryPage() {
         const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/'); // Decode base64 URL
         return JSON.parse(window.atob(base64)); // Parse payload menjadi objek
     }
+    console.log("coba", parseJwt(token))
     useEffect(() => {
         // Pastikan kode ini hanya berjalan di client side
         if (typeof window === "undefined") {
@@ -65,10 +66,9 @@ export default function ApplicationHistoryPage() {
         // Parse token untuk mendapatkan user_id
         const decodedToken = parseJwt(token);
 
-        // Ensure decodedToken is not null before proceeding
-        if (!decodedToken) {
-            throw new Error("Failed to decode token");
-        }
+
+
+        // const userId = decodedToken.user_id;
 
         // Fetch data aplikasi pekerjaan
         const fetchApplicationHistory = async () => {
@@ -100,7 +100,7 @@ export default function ApplicationHistoryPage() {
             <div className="bg-gray-100 font-roboto min-h-screen flex flex-col">
                 <Header />
                 <div className="flex flex-col items-center justify-center flex-grow p-6">
-                    <h1 className="text-2xl font-bold mb-6">Application History</h1>
+                    <h1 className="text-2xl font-bold mb-6">Application History x</h1>
                     <p className="text-red-500">{error}</p>
                 </div>
                 <Footer />
@@ -113,7 +113,7 @@ export default function ApplicationHistoryPage() {
         <div className="bg-gray-100 font-roboto min-h-screen flex flex-col">
             <Header />
             <div className="flex flex-col items-center justify-center flex-grow p-6">
-                <h1 className="text-2xl font-bold mb-6">Application History</h1>
+                <h1 className="text-2xl font-bold mb-6">Application History Anda</h1>
                 {applications.length === 0 ? (
                     <p className="text-gray-600">No applications found.</p>
                 ) : (
