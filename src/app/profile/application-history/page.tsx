@@ -46,7 +46,6 @@ export default function ApplicationHistoryPage() {
         const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/'); // Decode base64 URL
         return JSON.parse(window.atob(base64)); // Parse payload menjadi objek
     }
-    console.log("coba", parseJwt(token))
     useEffect(() => {
         // Pastikan kode ini hanya berjalan di client side
         if (typeof window === "undefined") {
@@ -66,9 +65,10 @@ export default function ApplicationHistoryPage() {
         // Parse token untuk mendapatkan user_id
         const decodedToken = parseJwt(token);
 
-
-
-        // const userId = decodedToken.user_id;
+        // Ensure decodedToken is not null before proceeding
+        if (!decodedToken) {
+            throw new Error("Failed to decode token");
+        }
 
         // Fetch data aplikasi pekerjaan
         const fetchApplicationHistory = async () => {
