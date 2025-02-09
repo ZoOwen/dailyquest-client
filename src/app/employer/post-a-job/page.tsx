@@ -23,7 +23,7 @@ export default function Page() {
         category: "",
         salary: "",
         location: "",
-        user_id: null, // Awalnya null, nanti diupdate setelah token diproses
+        user_id: 0, // Awalnya null, nanti diupdate setelah token diproses
     });
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState("");
