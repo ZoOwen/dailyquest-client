@@ -22,43 +22,42 @@ interface Application {
 
 // Definisikan tipe data untuk payload JWT
 interface DecodedToken {
-    user_id: number;
+    id: number;
     username: string;
     // Tambahkan field lain jika diperlukan
 }
-
-
 
 export default function ApplicationHistoryPage() {
     const [applications, setApplications] = useState<Application[]>([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
+    const [token, setToken] = useState<string | null>(null);
 
-
-    const token = localStorage.getItem('token');
     // Fungsi untuk mem-parse JWT
     function parseJwt(token: string | null): DecodedToken | null {
-        console.log("ini token di dapat dari jwt", token)
         if (!token) {
             return null; // Kembalikan null jika token tidak ada
         }
-        const base64Url = token.split('.')[1]; // Ambil bagian payload dari JWT
-        const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/'); // Decode base64 URL
-        return JSON.parse(window.atob(base64)); // Parse payload menjadi objek
+        try {
+            const base64Url = token.split('.')[1]; // Ambil bagian payload dari JWT
+            const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/'); // Decode base64 URL
+            return JSON.parse(window.atob(base64)); // Parse payload menjadi objek
+        } catch (err) {
+            console.error("Error parsing JWT:", err);
+            return null;
+        }
     }
-    console.log("coba", parseJwt(token))
+
     useEffect(() => {
         // Pastikan kode ini hanya berjalan di client side
-        if (typeof window === "undefined") {
-            setLoading(false);
-            return;
-        }
+        // Ambil token dari localStorage hanya di client side
+        const storedToken = localStorage.getItem('token');
+        setToken(storedToken);
+    }, []);
 
-        // Ambil token dari localStorage
-
-
+    useEffect(() => {
+        // Fetch data hanya jika token tersedia
         if (!token) {
-            setError("User not authenticated. Please log in.");
             setLoading(false);
             return;
         }
@@ -66,10 +65,12 @@ export default function ApplicationHistoryPage() {
         // Parse token untuk mendapatkan user_id
         const decodedToken = parseJwt(token);
 
-
-
-        // const userId = decodedToken.user_id;
-
+        if (!decodedToken) {
+            setError("Invalid token. Please log in again.");
+            setLoading(false);
+            return;
+        }
+        console.log("flish id muncul", decodedToken.id)
         // Fetch data aplikasi pekerjaan
         const fetchApplicationHistory = async () => {
             try {
@@ -87,7 +88,7 @@ export default function ApplicationHistoryPage() {
         };
 
         fetchApplicationHistory();
-    }, []);
+    }, [token]);
 
     // Tampilkan loading state
     if (loading) {
@@ -100,7 +101,7 @@ export default function ApplicationHistoryPage() {
             <div className="bg-gray-100 font-roboto min-h-screen flex flex-col">
                 <Header />
                 <div className="flex flex-col items-center justify-center flex-grow p-6">
-                    <h1 className="text-2xl font-bold mb-6">Application History x</h1>
+                    <h1 className="text-2xl font-bold mb-6">Application History</h1>
                     <p className="text-red-500">{error}</p>
                 </div>
                 <Footer />
@@ -113,7 +114,7 @@ export default function ApplicationHistoryPage() {
         <div className="bg-gray-100 font-roboto min-h-screen flex flex-col">
             <Header />
             <div className="flex flex-col items-center justify-center flex-grow p-6">
-                <h1 className="text-2xl font-bold mb-6">Application History Anda</h1>
+                <h1 className="text-2xl font-bold mb-6">Application History</h1>
                 {applications.length === 0 ? (
                     <p className="text-gray-600">No applications found.</p>
                 ) : (
