@@ -2,6 +2,14 @@
 
 import { useState } from "react";
 
+
+interface DecodedToken {
+    id: number;
+    username: string;
+    role: number;
+    iat: number;
+    exp: number;
+}
 export default function LoginPage() {
     const [formData, setFormData] = useState({
         username: "",
@@ -32,13 +40,37 @@ export default function LoginPage() {
             });
 
             const data = await res.json();
+
+            console.log("Login Response: ", data); // Menampilkan respon API di console log
+
             if (!res.ok) throw new Error(data.message || "Login failed");
 
             setSuccess("Login successful!");
-            localStorage.setItem("token", data.token); // Simpan token di localStorage
 
-            // Redirect ke halaman profil
-            window.location.href = "/jobs";
+            // Simpan token JWT ke localStorage
+            localStorage.setItem("token", data.data.token);
+
+            function parseJwt(token: string | null): DecodedToken | null {
+                if (!token) {
+                    return null; // Kembalikan null jika token tidak ada
+                }
+                const base64Url = token.split('.')[1]; // Ambil bagian payload dari JWT
+                const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/'); // Decode base64 URL
+                return JSON.parse(window.atob(base64)); // Parse payload menjadi objek
+            }
+
+            // Cek jika token ada dan valid
+            const decodedToken = parseJwt(data.data.token);
+            if (!decodedToken) {
+                console.log("Token tidak valid atau tidak ada.");
+                return null; // Jangan tampilkan JobCard jika token tidak ada atau tidak valid
+            }
+            // Redirect ke halaman pekerjaan (atau halaman yang diinginkan)
+            if (decodedToken.role == 2) {
+                window.location.href = "/jobs";
+            } else {
+                window.location.href = "/employer"
+            }
         } catch (err: unknown) {
             if (err instanceof Error) {
                 setError(err.message);
@@ -117,14 +149,12 @@ export default function LoginPage() {
                         </form>
 
                         <p className="mt-6 text-center text-sm text-gray-600">
-                            Don't have an account?{" "}
-                            <a
-                                href="/auth/register"
-                                className="text-blue-600 hover:underline"
-                            >
+                            {`Don't have an account? `}
+                            <a href="/auth/register" className="text-blue-600 hover:underline">
                                 Sign up
                             </a>
                         </p>
+
                     </div>
                 </div>
             </div>
