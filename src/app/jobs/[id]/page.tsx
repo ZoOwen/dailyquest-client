@@ -4,6 +4,7 @@ import { useEffect, useState, useRef } from "react";
 import { useParams, useRouter } from "next/navigation";
 import Header from "../../components/layout/Header";
 import Footer from "../../components/layout/Footer";
+// @ts-ignore
 import L from "leaflet"; // Import Leaflet
 import 'leaflet/dist/leaflet.css'; // Import CSS untuk Leaflet
 
