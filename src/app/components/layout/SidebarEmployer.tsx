@@ -23,21 +23,7 @@ const SidebarEmployer: React.FC<SidebarEmployerProps> = ({ isSidebarMinimized, t
                     <span className="nav-label">Kelola Pekerjaan</span>
                     {/* <span className="badge">5</span> */}
                 </Link>
-                <Link href="#" className="nav-item">
-                    <Users />
-                    {/* <span className="nav-label">Kandidat</span> */}
-                    {/* <span className="badge">12</span> */}
-                </Link>
-                <Link href="#" className="nav-item">
-                    <Mail />
-                    {/* <span className="nav-label">Pesan</span> */}
-                    {/* <span className="badge">3</span> */}
-                </Link>
-                <Link href="#" className="nav-item">
-                    <Bell />
-                    {/* <span className="nav-label">Notifikasi</span> */}
-                    {/* <span className="badge">8</span> */}
-                </Link>
+
             </nav>
         </aside>
     );
