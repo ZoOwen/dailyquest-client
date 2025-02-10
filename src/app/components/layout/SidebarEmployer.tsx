@@ -1,7 +1,7 @@
 // components/layout/SidebarEmployer.tsx
 
 import Link from "next/link";
-import { Feather, Briefcase, Bell, Mail, Users } from "react-feather";
+import { Feather, Briefcase } from "react-feather";
 
 interface SidebarEmployerProps {
     isSidebarMinimized: boolean;
