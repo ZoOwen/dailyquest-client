@@ -30,7 +30,7 @@ export default function LoginPage() {
         setSuccess("");
 
         try {
-            const res = await fetch("http://147.93.106.89:5000/api/v1/auth/login", {
+            const res = await fetch("https://dailyquest.space/api/v1/auth/login", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",

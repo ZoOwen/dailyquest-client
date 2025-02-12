@@ -54,7 +54,7 @@ const JobAssignmentPage = () => {
         if (id) {
             const fetchAssignment = async () => {
                 try {
-                    const response = await fetch(`http://147.93.106.89:5000/api/v1/job-assigment/${params.id}`);
+                    const response = await fetch(`https://dailyquest.space/api/v1/job-assigment/${params.id}`);
                     const data = await response.json();
                     console.log("Job Assignment Data:", data);
 
@@ -81,7 +81,7 @@ const JobAssignmentPage = () => {
     // Fetch wallet ID based on user ID
     const fetchWalletId = async (userId: number) => {
         try {
-            const response = await fetch(`http://147.93.106.89:5000/api/v1/wallet/${userId}`);
+            const response = await fetch(`https://dailyquest.space/api/v1/wallet/${userId}`);
             const data = await response.json();
             console.log("Wallet Data coek:", data.data.id);
 
@@ -102,7 +102,7 @@ const JobAssignmentPage = () => {
 
         try {
             // **1. Update Job Assignment Status to "Completed"**
-            const assignmentResponse = await fetch("http://147.93.106.89:5000/api/v1/job-assigment", {
+            const assignmentResponse = await fetch("https://dailyquest.space/api/v1/job-assigment", {
                 method: "PATCH",
                 headers: {
                     "Content-Type": "application/json",
@@ -131,7 +131,7 @@ const JobAssignmentPage = () => {
                 wallet_id: walletId, // Use the fetched wallet ID
             };
 
-            const paymentResponse = await fetch("http://147.93.106.89:5000/api/v1/payment", {
+            const paymentResponse = await fetch("https://dailyquest.space/api/v1/payment", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -182,7 +182,7 @@ const JobAssignmentPage = () => {
 
         try {
             // Send the order_id in the body using POST method
-            const response = await fetch("http://147.93.106.89:5000/api/v1/payment/status", {
+            const response = await fetch("https://dailyquest.space/api/v1/payment/status", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",

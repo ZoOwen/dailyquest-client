@@ -64,7 +64,7 @@ export default function RegisterEmployer() {
         }
 
         try {
-            const response = await fetch("http://147.93.106.89:5000/api/v1/auth/register?role=1", {
+            const response = await fetch("https://dailyquest.space/api/v1/auth/register?role=1", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",

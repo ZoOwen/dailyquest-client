@@ -85,7 +85,7 @@ export default function Page() {
         setSuccess(false);
 
         try {
-            const response = await fetch("http://147.93.106.89:5000/api/v1/job/create", {
+            const response = await fetch("https://dailyquest.space/api/v1/job/create", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",

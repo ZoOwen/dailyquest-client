@@ -71,7 +71,7 @@ const JobApplicantsPage = () => {
         if (id) {
             const fetchApplications = async () => {
                 try {
-                    const response = await fetch(`http://147.93.106.89:5000/api/v1/application?job_id=${id}`);
+                    const response = await fetch(`https://dailyquest.space/api/v1/application?job_id=${id}`);
                     const data = await response.json();
                     if (data && data.success) {
                         setApplications(data.data); // Menyimpan data pelamar
@@ -93,7 +93,7 @@ const JobApplicantsPage = () => {
     const acceptApplicant = async () => {
         if (selectedApplicationId) {
             try {
-                const response = await fetch("http://147.93.106.89:5000/api/v1/job-assigment", {
+                const response = await fetch("https://dailyquest.space/api/v1/job-assigment", {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json",
@@ -137,7 +137,7 @@ const JobApplicantsPage = () => {
     // Fungsi untuk menandai pelamar sebagai selesai
     const markAsComplete = async (applicationId: number) => {
         try {
-            const response = await fetch("http://147.93.106.89:5000/api/v1/job-assigment", {
+            const response = await fetch("https://dailyquest.space/api/v1/job-assigment", {
                 method: "PATCH",
                 headers: {
                     "Content-Type": "application/json",

@@ -74,7 +74,7 @@ export default function ApplicationHistoryPage() {
         // Fetch data aplikasi pekerjaan
         const fetchApplicationHistory = async () => {
             try {
-                const response = await fetch(`http://147.93.106.89:5000/api/v1/application?user_id=${decodedToken.id}`);
+                const response = await fetch(`https://dailyquest.space/api/v1/application?user_id=${decodedToken.id}`);
                 if (!response.ok) {
                     throw new Error(`Failed to fetch application history: ${response.statusText}`);
                 }

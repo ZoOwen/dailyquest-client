@@ -67,7 +67,7 @@ export default function ProfilePage() {
 
         try {
             const response = await fetch(
-                `http://147.93.106.89:5000/api/v1/wallet/${userId}`,
+                `https://dailyquest.space/api/v1/wallet/${userId}`,
                 {
                     headers: {
                         "Content-Type": "application/json",
@@ -101,7 +101,7 @@ export default function ProfilePage() {
         try {
             setLoading(true);
             const response = await fetch(
-                `http://147.93.106.89:5000/api/v1/auth/profile?profile_id=${userId}`,
+                `https://dailyquest.space/api/v1/auth/profile?profile_id=${userId}`,
                 {
                     headers: {
                         "Content-Type": "application/json",
@@ -132,7 +132,7 @@ export default function ProfilePage() {
 
         try {
             setLoading(true);
-            const response = await fetch(`http://147.93.106.89:5000/api/v1/wallet`, {
+            const response = await fetch(`https://dailyquest.space/api/v1/wallet`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
